@@ -1,9 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        TUI tui = new TUI();
+        tui.showMenu();
     }
-    private void newGame(){}
-    private void loadGame(){}
-    private void settings(){}
-    private void exit(){}
+
 }
