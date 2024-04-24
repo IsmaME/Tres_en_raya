@@ -14,10 +14,11 @@ public class TUI {
                         "[3] Configuració\n" +
                         "[4] Sortir\n");
 
-        int op = sc.nextInt();
+        int op = 0;
         boolean control = true;
 
         while (control) {
+            op = sc.nextInt();
             if (op <= 0 || op > 4) {
                 System.out.println("Opcio invalida!");
                 System.out.print(

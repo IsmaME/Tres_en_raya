@@ -2,6 +2,7 @@ import jdk.jshell.spi.ExecutionControl;
 
 public class Main {
     public static void main(String[] args) {
+        Joc game = new Joc();
         TUI tui = new TUI();
         int op = tui.showMenu();
 
