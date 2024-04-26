@@ -4,6 +4,7 @@ public class Joc {
     private char[][] board;
     private short turn;
 
+    //Methods
     public void newGame() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Method newGame not implemented");
     }
@@ -12,5 +13,14 @@ public class Joc {
     }
     public boolean winning_play(short row,short column) throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Method wining_play not implemented");
+    }
+
+    //Getters
+    public char[][] getBoard() {
+        return board;
+    }
+
+    public short getTurn() {
+        return turn;
     }
 }
