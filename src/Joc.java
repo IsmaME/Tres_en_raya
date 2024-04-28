@@ -1,25 +1,32 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.Arrays;
+
 public class Joc {
     private char[][] board = new char[3][3];
     private short turn = 1;
 
     //Methods
-    public void newGame() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Method newGame not implemented");
+    public void newGame() {
+        //create an empty board
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                this.board[i][j] = ' ';
+            }
+        }
     }
     public void play(short row, short column)  {
         //check if this element are empty
-        if (board[row][column] != 'X' && board[row][column] != 'O') {
-            //add pice X or O and switch the turns
-            switch (turn) {
+        if (this.board[row][column] != 'X' && this.board[row][column] != 'O') {
+            //add piece X or O and switch the turns
+            switch (this.turn) {
                 case 1:
-                    board[row][column] = 'X';
-                    turn = 2;
+                    this.board[row][column] = 'X';
+                    this.turn = 2;
                     break;
                 case 2:
-                    board[row][column] = 'O';
-                    turn = 1;
+                    this.board[row][column] = 'O';
+                    this.turn = 1;
                     break;
             }
         }

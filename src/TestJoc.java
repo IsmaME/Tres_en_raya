@@ -4,7 +4,27 @@ import org.junit.jupiter.api.Assertions;
 public class TestJoc {
     @org.junit.jupiter.api.Test
     void newGame() {
+        Joc game = new Joc();
 
+        game.newGame();
+
+        //create an empty board
+        char[][] empty_board = new char[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                empty_board[i][j] = ' ';
+            }
+        }
+        char[][] my_board = game.getBoard();
+
+        //test empty board
+        Assertions.assertArrayEquals(empty_board, my_board);
+
+        //test player1 turn
+        Assertions.assertEquals(1, game.getTurn());
+
+        //test player2 turn
+        Assertions.assertEquals(2, game.getTurn() + 1);
     }
 
     @org.junit.jupiter.api.Test
