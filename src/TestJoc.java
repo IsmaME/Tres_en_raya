@@ -10,11 +10,7 @@ public class TestJoc {
 
         //create an empty board
         char[][] empty_board = new char[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                empty_board[i][j] = ' ';
-            }
-        }
+
         char[][] my_board = game.getBoard();
 
         //test empty board

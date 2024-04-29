@@ -8,12 +8,8 @@ public class Joc {
 
     //Methods
     public void newGame() {
-        //create an empty board
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                this.board[i][j] = ' ';
-            }
-        }
+        //set the board empty
+        this.board = new char[3][3];
     }
     public void play(short row, short column)  {
         //check if this element are empty
