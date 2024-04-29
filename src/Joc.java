@@ -1,7 +1,5 @@
 import jdk.jshell.spi.ExecutionControl;
 
-import java.util.Arrays;
-
 public class Joc {
     private char[][] board = new char[3][3];
     private short turn = 1;
