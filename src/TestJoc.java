@@ -6,11 +6,11 @@ public class TestJoc {
     void newGame() {
         Joc game = new Joc();
 
-        game.newGame();
-
         //create an empty board
         char[][] empty_board = new char[3][3];
 
+        //get our board
+        game.newGame();
         char[][] my_board = game.getBoard();
 
         //test empty board

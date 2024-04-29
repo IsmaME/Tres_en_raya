@@ -8,7 +8,9 @@ public class Joc {
     public void newGame() {
         //set the board empty
         this.board = new char[3][3];
+        this.turn = 1;
     }
+
     public void play(short row, short column)  {
         //check if this element are empty
         if (this.board[row][column] != 'X' && this.board[row][column] != 'O') {
