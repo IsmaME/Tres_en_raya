@@ -25,26 +25,41 @@ public class TestJoc {
         Assertions.assertEquals(2, game.getTurn() + 1);
     }
 
-    @org.junit.jupiter.api.Test
-    void play() throws ExecutionControl.NotImplementedException {
-        Joc game1 = new Joc();
 
+    @ParameterizedTest
+    @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
+    void play_player1(short row, short column) throws ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
         char[][] board = new char[3][3];
 
-        short row = 0;
-        short column = 0;
-
-        //test player1
+        //Asign X in the indicated position
         board[row][column] = 'X';
-        game1.play(row, column);
-        Assertions.assertArrayEquals(board, game1.getBoard());
-
-        //test player2
-        board[row][column] = 'X';
-        column = 1;
-        board[row][column] = 'O';
-        game1.play(row, column);
-        Assertions.assertArrayEquals(board, game1.getBoard());
+        //make player1 play
+        game.play(row,column);
+        //test
+        Assertions.assertArrayEquals(board,game.getBoard());
     }
 
+    @ParameterizedTest
+    @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
+    void play_player2(short row, short column) throws ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        char[][] board = new char[3][3];
+
+        //preparations
+        //make player1 play
+        game.newGame();
+        game.play((short)1,(short)1);
+        board[1][1] = 'X';
+
+        //testing player2
+        //Asign X in the indicated position
+        if (board[row][column] != 'X'){
+            board[row][column] = 'O';
+        }
+        //make the player2 play
+        game.play(row,column);
+        //test
+        Assertions.assertArrayEquals(board,game.getBoard());
+    }
 }
