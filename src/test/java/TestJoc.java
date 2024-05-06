@@ -1,4 +1,3 @@
-import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -28,7 +27,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
-    void play_player1(short row, short column) throws ExecutionControl.NotImplementedException {
+    void play_player1(short row, short column) {
         Joc game = new Joc();
         char[][] board = new char[3][3];
 
@@ -42,7 +41,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
-    void play_player2(short row, short column) throws ExecutionControl.NotImplementedException {
+    void play_player2(short row, short column) {
         Joc game = new Joc();
         char[][] board = new char[3][3];
 
@@ -61,5 +60,62 @@ public class TestJoc {
         game.play(row,column);
         //test
         Assertions.assertArrayEquals(board,game.getBoard());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
+    void winning_play_empty_board(short row,short column) {
+        Joc game = new Joc();
+
+        game.newGame();
+
+        Assertions.assertFalse(game.winning_play(row, column));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
+    void winning_play_one_position(short row,short column) {
+        Joc game = new Joc();
+
+        game.newGame();
+        game.play(row, column);
+
+        Assertions.assertFalse(game.winning_play(row, column));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"2,0"})
+    void winning_play_player1(short row,short column) {
+        Joc game = new Joc();
+
+        game.newGame();
+
+        //Make a board with a winning condition for player1
+        game.play((short) 0, (short) 0);
+        game.play((short) 1, (short) 1);
+        game.play((short) 0, (short) 2);
+        game.play((short) 2, (short) 1);
+        game.play((short) 1, (short) 0);
+        game.play((short) 2, (short) 2);
+
+        Assertions.assertTrue(game.winning_play(row, column));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"0,1"})
+    void winning_play_player2(short row,short column) {
+        Joc game = new Joc();
+
+        game.newGame();
+
+        //Make a board with a winning condition for player2
+        game.play((short) 0, (short) 0);
+        game.play((short) 1, (short) 1);
+        game.play((short) 0, (short) 2);
+        game.play((short) 2, (short) 1);
+        game.play((short) 1, (short) 0);
+
+        Assertions.assertTrue(game.winning_play(row, column));
     }
 }
