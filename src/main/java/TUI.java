@@ -32,11 +32,31 @@ public class TUI {
         }
         return op;
     }
-    public void showBoard(char[][] taulell, short torn) throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Por hacer.");
+    public void showBoard(char[][] original_board, short torn) {
+        //show player turn
+        System.out.println(torn == 1? "Torn: Jugador1" : "Torn: Jugador2");
+        System.out.println(" ");
+
+        //show the board
+        for (int i = 0; i < original_board.length; i++) {
+            for (int j = 0; j < original_board[0].length; j++) {
+                System.out.print(original_board[i][j]);
+            }
+            System.out.println("");
+        }
     }
-    public short pickUpPlay() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Por hacer.");
+    public short[] pickUpPlay() {
+        short[] coord = new short[2];
+
+        //saving column cord in coord[0] and saving row in coord[1]
+        System.out.print("columna: ");
+        coord[0] = sc.nextShort();
+        System.out.println();
+        System.out.print("fila: ");
+        coord[1] = sc.nextShort();
+        System.out.println();
+
+        return coord;
     }
     public void endOfGame(short guanyador) throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
