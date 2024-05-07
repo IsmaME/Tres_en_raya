@@ -1,6 +1,6 @@
 public class Joc {
-    private char[][] board = new char[3][3];
-    private short turn = 1;
+    private char[][] board;
+    private short turn;
 
     //Methods
     public void newGame() {
@@ -34,37 +34,39 @@ public class Joc {
             symbol = 'O';
         }
 
-        //Create an empty board
-        char[][] temp_board = new char[3][3];
-
-        //Copy the elements of our board in the empty one
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                temp_board[i][j] = this.board[i][j];
-            }
-        }
-
-        //Now we can simulate plays on the temp_board without affecting our board
-        //Simulate a play on the temp_board
-        temp_board[row][column] = symbol;
+        this.board[row][column] = symbol;
 
         //Check if there's a winning row
-        if (temp_board[row][0] == symbol && temp_board[row][1] == symbol && temp_board[row][2] == symbol) {
+        if (this.board[row][0] == symbol && this.board[row][1] == symbol && this.board[row][2] == symbol) {
+            this.board[row][column] = 0;
             return true;
         }
 
         //Check if there's a winning column
-        if (temp_board[0][column] == symbol && temp_board[1][column] == symbol && temp_board[2][column] == symbol) {
+        if (this.board[0][column] == symbol && this.board[1][column] == symbol && this.board[2][column] == symbol) {
+            this.board[row][column] = 0;
             return true;
         }
 
         //Check if there's a winning diagonal
-        if ((temp_board[0][0] == symbol && temp_board[1][1] == symbol && temp_board[2][2] == symbol)
-                || (temp_board[0][2] == symbol && temp_board[1][1] == symbol && temp_board[2][0] == symbol)) {
+        if ((this.board[0][0] == symbol && this.board[1][1] == symbol && this.board[2][2] == symbol)
+                || (this.board[0][2] == symbol && this.board[1][1] == symbol && this.board[2][0] == symbol)) {
+            this.board[row][column] = 0;
             return true;
         }
 
+        //If all the board is fill and there's no winner return false
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (this.board[i][j] != 0) {
+                    this.board[row][column] = 0;
+                    return false;
+                }
+            }
+        }
+
         //If there's no winning condition return false
+        this.board[row][column] = 0;
         return false;
     }
 
