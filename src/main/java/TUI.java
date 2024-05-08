@@ -44,15 +44,17 @@ public class TUI {
             }
             System.out.println("");
         }
+        System.out.println("Introdueix la teva jugada indicant primer la columna i després la fila ('-1,-1' per desar partida)");
     }
+
     public short[] pickUpPlay() {
         short[] coord = new short[2];
 
         //saving column cord in coord[0] and saving row in coord[1]
-        System.out.print("columna: ");
+        System.out.print("fila: ");
         coord[0] = sc.nextShort();
         System.out.println();
-        System.out.print("fila: ");
+        System.out.print("columna: ");
         coord[1] = sc.nextShort();
         System.out.println();
 
@@ -60,5 +62,10 @@ public class TUI {
     }
     public void endOfGame(short guanyador) throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
+    }
+
+    public void outOfBounds(){
+        System.out.println("ERROR!! Las cordenades introduides no son correctes");
+        System.out.println("Torna a introduir les coordenades:");
     }
 }
