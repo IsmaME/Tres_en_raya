@@ -76,4 +76,23 @@ public class TUI {
     public void draw_message() {
         System.out.println("La partida ha quedat en empat!");
     }
+
+    public int board_settings() {
+
+        int opt = 0;
+
+        System.out.println("Selecciona la opcio que vulguis: ");
+
+        switch (sc.nextInt()) {
+            case 1:
+                System.out.print("[1] Mida del taulell");
+                opt = 1;
+                break;
+            case 2:
+                System.out.println("[2] Tornar enrere");
+                opt = 2;
+                break;
+        }
+        return opt;
+    }
 }

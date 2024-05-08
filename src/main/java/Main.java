@@ -15,14 +15,13 @@ public class Main {
                 //loadGame();
                 break;
             case 3:
-                //settings();
+                settings();
                 break;
             case 4:
                 //exit();
                 break;
         }
     }
-
 
     private static void newGame(Joc game, TUI tui) {
         game.newGame();
@@ -70,12 +69,24 @@ public class Main {
             }
         }
     }
+
     private static void loadGame() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
     }
+
     private static void settings() {
         TUI tui = new TUI();
+        Joc joc = new Joc();
+
+        int opt = tui.board_settings();
+
+        if (opt == 1) {
+
+        } else if (opt == 2) {
+            tui.showMenu();
+        }
     }
+
     private static void exit() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
     }
