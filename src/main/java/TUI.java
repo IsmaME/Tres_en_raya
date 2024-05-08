@@ -68,4 +68,12 @@ public class TUI {
         System.out.println("ERROR!! Las cordenades introduides no son correctes");
         System.out.println("Torna a introduir les coordenades:");
     }
+
+    public void win(short turn) {
+        System.out.println(turn == 1 ? "Ha guanyat el jugador1!" : "Ha guanyat el jugador2!");
+    }
+
+    public void draw_message() {
+        System.out.println("La partida ha quedat en empat!");
+    }
 }

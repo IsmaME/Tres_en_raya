@@ -61,8 +61,8 @@ public class Main {
     private static void loadGame() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
     }
-    private static void settings() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Por hacer.");
+    private static void settings() {
+        TUI tui = new TUI();
     }
     private static void exit() throws ExecutionControl.NotImplementedException {
         throw new ExecutionControl.NotImplementedException("Por hacer.");

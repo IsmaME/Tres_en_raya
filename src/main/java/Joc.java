@@ -55,21 +55,23 @@ public class Joc {
             return true;
         }
 
-        //If all the board is fill and there's no winner return false
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                if (this.board[i][j] != 0) {
-                    this.board[row][column] = 0;
-                    return false;
-                }
-            }
-        }
-
         //If there's no winning condition return false
         this.board[row][column] = 0;
         return false;
     }
 
+    public boolean draw(short row, short column) {
+        //If all the board is fill and there's no winner return false
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (this.board[i][j] != 0) {
+                    this.board[row][column] = 0;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     //Getters
     public char[][] getBoard() {
         return board;
