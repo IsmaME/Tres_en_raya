@@ -60,16 +60,24 @@ public class Joc {
         return false;
     }
 
-    public boolean boarfilled(short row, short column) {
+    public boolean board_filled() {
+        int total_cells = 9;
+        int filled_cells = 0;
+        boolean opt = false;
+
         //If all the board is fill and there's no winner return true
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
                 if (this.board[i][j] != 0) {
-                    return true;
+                    filled_cells++;
                 }
             }
         }
-        return false;
+        if (filled_cells == total_cells) {
+            opt = true;
+        }
+
+        return opt;
     }
     //Getters
     public char[][] getBoard() {

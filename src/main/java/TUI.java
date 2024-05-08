@@ -50,7 +50,7 @@ public class TUI {
     public short[] pickUpPlay() {
         short[] coord = new short[2];
 
-        //saving column cord in coord[0] and saving row in coord[1]
+        //saving row cord in coord[0] and saving column in coord[1]
         System.out.print("fila: ");
         coord[0] = sc.nextShort();
         System.out.println();
@@ -66,6 +66,11 @@ public class TUI {
 
     public void outOfBounds(){
         System.out.println("ERROR!! Las cordenades introduides no son correctes");
+        System.out.println("Torna a introduir les coordenades:");
+    }
+
+    public void already_played() {
+        System.out.println("No pots jugar en aquesta casella perque no es buida!");
         System.out.println("Torna a introduir les coordenades:");
     }
 

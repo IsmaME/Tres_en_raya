@@ -35,26 +35,29 @@ public class Main {
 
             tui.showBoard(game.getBoard(), game.getTurn());
 
-            //pick up coords, if coords are correct we call play method from Joc class
+            //pick up cords, if cords are correct we call play method from Joc class
             do {
                 //pick coords
-                short[] play_coords = tui.pickUpPlay();
+                short[] play_cords = tui.pickUpPlay();
 
-                //veryfy we passing the correct coords and make sure we dont have out of bounds
-                if( game.getBoard().length < play_coords[0] || game.getBoard()[0].length < play_coords[1] || play_coords[0] < -1 || play_coords[1] < -1){
+                //verify we're passing the correct cords and make sure we don't have out of bounds
+                if( game.getBoard().length <= play_cords[0] || game.getBoard()[0].length <= play_cords[1] || play_cords[0] < -1 || play_cords[1] < -1){
                     tui.outOfBounds();
                     bad_coords = true;
                 }
                 //if coords are like -1,2 or 2,-1 we cant play because out of bounds we need check it to
-                else if (play_coords[0] == -1 && play_coords[1] != -1 || play_coords[1] == -1 && play_coords[0] != -1) {
+                else if (play_cords[0] == -1 && play_cords[1] != -1 || play_cords[1] == -1 && play_cords[0] != -1) {
                     tui.outOfBounds();
+                    bad_coords = true;
+                } else if (game.getBoard()[play_cords[0]][play_cords[1]] != 0) {
+                    tui.already_played();
                     bad_coords = true;
                 }
                 //run when all coords are correct
                 else {
-                    player_win = game.winning_play(play_coords[0],play_coords[1]);
-                    boarfilled = game.boarfilled(play_coords[0],play_coords[1]);
-                    game.play(play_coords[0],play_coords[1]);
+                    player_win = game.winning_play(play_cords[0],play_cords[1]);
+                    game.play(play_cords[0],play_cords[1]);
+                    boarfilled = game.board_filled();
                     bad_coords = false;
                 }
             } while (bad_coords);
@@ -63,7 +66,7 @@ public class Main {
             if (player_win){
                 tui.win_message(player_turn);
                 runing_game = false;
-            } else if (boarfilled && !player_win) {
+            } else if (boarfilled) {
                 tui.draw_message();
                 runing_game = false;
             }

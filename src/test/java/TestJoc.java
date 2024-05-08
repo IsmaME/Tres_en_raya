@@ -350,9 +350,8 @@ public class TestJoc {
         Assertions.assertTrue(game.winning_play(row, column));
     }
 
-    @ParameterizedTest
-    @CsvSource({"2,2"})
-    void winning_play_draw(short row,short column) {
+    @org.junit.jupiter.api.Test
+    void board_filled() {
         Joc game = new Joc();
 
         game.newGame();
@@ -366,7 +365,8 @@ public class TestJoc {
         game.play((short) 1, (short) 2);
         game.play((short) 2, (short) 0);
         game.play((short) 2, (short) 1);
+        game.play((short) 2, (short) 2);
 
-        Assertions.assertFalse(game.winning_play(row, column));
+        Assertions.assertTrue(game.board_filled());
     }
 }
