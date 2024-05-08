@@ -69,7 +69,7 @@ public class TUI {
         System.out.println("Torna a introduir les coordenades:");
     }
 
-    public void win(short turn) {
+    public void win_message(short turn) {
         System.out.println(turn == 1 ? "Ha guanyat el jugador1!" : "Ha guanyat el jugador2!");
     }
 

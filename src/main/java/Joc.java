@@ -60,12 +60,11 @@ public class Joc {
         return false;
     }
 
-    public boolean draw(short row, short column) {
-        //If all the board is fill and there's no winner return false
+    public boolean boarfilled(short row, short column) {
+        //If all the board is fill and there's no winner return true
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 if (this.board[i][j] != 0) {
-                    this.board[row][column] = 0;
                     return true;
                 }
             }
