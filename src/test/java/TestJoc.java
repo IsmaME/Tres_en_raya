@@ -372,4 +372,13 @@ public class TestJoc {
 
         Assertions.assertTrue(game.board_filled(board_row, board_column));
     }
+
+    @org.junit.jupiter.api.Test
+    void new_board_settings() {
+        Joc game = new Joc();
+
+        int actual = game.new_board_settings((short) 3);
+
+        Assertions.assertEquals(3, actual);
+    }
 }

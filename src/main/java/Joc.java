@@ -90,7 +90,7 @@ public class Joc {
         return opt;
     }
 
-    public int  new_board_settings(short settings) {
+    public int new_board_settings(short settings) {
         String data = "";
         File board_size = new File("config");
 
