@@ -1,12 +1,22 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class Joc {
-    private char[][] board;
+    private char[][] board = new char[3][3];
     private short turn;
 
     //Methods
     public void newGame() {
-        //set the board empty
-        this.board = new char[3][3];
         this.turn = 1;
+    }
+    public void new_board(int size) {
+        //set the board empty
+        this.board = new char[size][size];
+        setBoard(this.board);
     }
 
     public void play(short row, short column)  {
@@ -60,8 +70,8 @@ public class Joc {
         return false;
     }
 
-    public boolean board_filled() {
-        int total_cells = 9;
+    public boolean board_filled(int board_row, int board_column) {
+        int total_cells = board_row * board_column;
         int filled_cells = 0;
         boolean opt = false;
 
@@ -79,6 +89,34 @@ public class Joc {
 
         return opt;
     }
+
+    public int  new_board_settings(short settings) {
+        String data = "";
+        File board_size = new File("config");
+
+        try {
+            FileWriter size = new FileWriter(board_size);
+            size.write(String.valueOf(settings));
+            size.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Scanner myReader;
+
+        try {
+            myReader = new Scanner(board_size);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        while (myReader.hasNextLine()) {
+            data = myReader.nextLine();
+            System.out.println(data);
+        }
+
+        return Integer.parseInt(data);
+    }
     //Getters
     public char[][] getBoard() {
         return board;
@@ -86,5 +124,9 @@ public class Joc {
 
     public short getTurn() {
         return turn;
+    }
+
+    public void setBoard(char[][] board) {
+        this.board = board;
     }
 }

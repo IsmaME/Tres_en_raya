@@ -8,11 +8,13 @@ public class TUI {
     public int showMenu(){
 
         System.out.print(
-                "Benvingut a Tic Tac Toe!\n" +
-                        "[1] Nova partida\n" +
-                        "[2] Carregar partida\n" +
-                        "[3] Configuració\n" +
-                        "[4] Sortir\n");
+                """
+                        Benvingut a Tic Tac Toe!
+                        [1] Nova partida
+                        [2] Carregar partida
+                        [3] Configuració
+                        [4] Sortir
+                        """);
 
         int op = 0;
         boolean control = true;
@@ -22,10 +24,12 @@ public class TUI {
             if (op <= 0 || op > 4) {
                 System.out.println("Opcio invalida!");
                 System.out.print(
-                                "[1] Nova partida\n" +
-                                "[2] Carregar partida\n" +
-                                "[3] Configuració\n" +
-                                "[4] Sortir\n");
+                        """
+                                [1] Nova partida
+                                [2] Carregar partida
+                                [3] Configuració
+                                [4] Sortir
+                                """);
             } else {
                 control = false;
             }
@@ -42,7 +46,7 @@ public class TUI {
             for (int j = 0; j < original_board[0].length; j++) {
                 System.out.print(original_board[i][j]);
             }
-            System.out.println("");
+            System.out.println();
         }
         System.out.println("Introdueix la teva jugada indicant primer la columna i després la fila ('-1,-1' per desar partida)");
     }
@@ -50,7 +54,7 @@ public class TUI {
     public short[] pickUpPlay() {
         short[] coord = new short[2];
 
-        //saving row cord in coord[0] and saving column in coord[1]
+        //saving row cord in cord[0] and saving column in cord[1]
         System.out.print("fila: ");
         coord[0] = sc.nextShort();
         System.out.println();
@@ -86,18 +90,49 @@ public class TUI {
 
         int opt = 0;
 
-        System.out.println("Selecciona la opcio que vulguis: ");
+        System.out.println("""
+                Selecciona la opcio que vulguis:
+                [1] Mida del taulell
+                [2] Tornar enrere""");
 
         switch (sc.nextInt()) {
             case 1:
-                System.out.print("[1] Mida del taulell");
                 opt = 1;
                 break;
             case 2:
-                System.out.println("[2] Tornar enrere");
                 opt = 2;
                 break;
+            default:
+                System.out.println("Opcio incorrecta!");
+                break;
         }
+        return opt;
+    }
+
+    public short board_size() {
+        short opt = 0;
+        short size;
+        boolean bad_size = true;
+
+        do {
+            System.out.println("Quina mida vols al teu taulell?\n" +
+                    "(minim 3x3 i maxim 10x10)");
+
+            size = sc.nextShort();
+
+            if (size < 3 || size > 10) {
+                System.out.println("""
+                        Mida del taulell incorrecta!
+                        Introdueix dades correctes
+                        """);
+            } else {
+                opt = size;
+                bad_size = false;
+            }
+
+
+        } while (bad_size);
+
         return opt;
     }
 }

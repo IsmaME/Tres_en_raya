@@ -356,6 +356,9 @@ public class TestJoc {
 
         game.newGame();
 
+        int board_row = game.getBoard().length;
+        int board_column = game.getBoard()[0].length;
+
         //Make a board with a winning condition for player1
         game.play((short) 0, (short) 1);
         game.play((short) 0, (short) 0);
@@ -367,6 +370,6 @@ public class TestJoc {
         game.play((short) 2, (short) 1);
         game.play((short) 2, (short) 2);
 
-        Assertions.assertTrue(game.board_filled());
+        Assertions.assertTrue(game.board_filled(board_row, board_column));
     }
 }

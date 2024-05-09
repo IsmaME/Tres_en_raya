@@ -6,29 +6,38 @@ public class Main {
         Joc game = new Joc();
         
         int op = tui.showMenu();
+        boolean control = true;
 
-        switch (op) {
-            case 1:
-                newGame(game, tui);
-                break;
-            case 2:
-                //loadGame();
-                break;
-            case 3:
-                settings();
-                break;
-            case 4:
-                //exit();
-                break;
-        }
+        do {
+            switch (op) {
+                case 1:
+                    newGame(game, tui);
+                    break;
+                case 2:
+                    //loadGame();
+                    break;
+                case 3:
+                    settings();
+                    break;
+                case 4:
+                    //exit();
+                    control = false;
+                    break;
+            }
+            op = tui.showMenu();
+
+        } while (control);
     }
 
     private static void newGame(Joc game, TUI tui) {
         game.newGame();
+        char[][] final_board = new char[3][3];
         boolean runing_game = true;
         boolean player_win = false;
         boolean boarfilled = false;
         boolean bad_coords;
+        int board_row = game.getBoard().length;
+        int board_column = game.getBoard()[0].length;
 
         while (runing_game){
             short player_turn = game.getTurn();
@@ -49,7 +58,9 @@ public class Main {
                 else if (play_cords[0] == -1 && play_cords[1] != -1 || play_cords[1] == -1 && play_cords[0] != -1) {
                     tui.outOfBounds();
                     bad_coords = true;
-                } else if (game.getBoard()[play_cords[0]][play_cords[1]] != 0) {
+                }
+                //A player can't put his piece in a cord that is already filled
+                else if (game.getBoard()[play_cords[0]][play_cords[1]] != 0) {
                     tui.already_played();
                     bad_coords = true;
                 }
@@ -57,7 +68,7 @@ public class Main {
                 else {
                     player_win = game.winning_play(play_cords[0],play_cords[1]);
                     game.play(play_cords[0],play_cords[1]);
-                    boarfilled = game.board_filled();
+                    boarfilled = game.board_filled(board_row, board_column);
                     bad_coords = false;
                 }
             } while (bad_coords);
@@ -65,8 +76,10 @@ public class Main {
             //check if someone win or draw
             if (player_win){
                 tui.win_message(player_turn);
+                game.setBoard(final_board);
                 runing_game = false;
             } else if (boarfilled) {
+                game.setBoard(final_board);
                 tui.draw_message();
                 runing_game = false;
             }
@@ -77,16 +90,24 @@ public class Main {
         throw new ExecutionControl.NotImplementedException("Por hacer.");
     }
 
+    //This method asks the player what he wants to do in the "settings"
     private static void settings() {
         TUI tui = new TUI();
-        Joc joc = new Joc();
+        Joc game = new Joc();
+        short settings;
+        int new_size = 0;
+
 
         int opt = tui.board_settings();
 
-        if (opt == 1) {
-
-        } else if (opt == 2) {
-            tui.showMenu();
+        switch (opt) {
+            case 1:
+            //This will get the settings and give it to the method that changes the board
+            settings = tui.board_size();
+            new_size = game.new_board_settings(settings);
+            game.new_board(new_size);
+            case 2:
+                break;
         }
     }
 
