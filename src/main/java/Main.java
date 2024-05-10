@@ -54,6 +54,13 @@ public class Main {
                     tui.outOfBounds();
                     bad_coords = true;
                 }
+                //if coords are -1,-1 program will save the game
+                else if (play_cords[0] == -1 && play_cords[1] == -1) {
+                    System.out.println("se ha creado " + game.save_game());
+
+                    bad_coords = false;
+                    runing_game = false;
+                }
                 //if coords are like -1,2 or 2,-1 we cant play because out of bounds we need check it to
                 else if (play_cords[0] == -1 && play_cords[1] != -1 || play_cords[1] == -1 && play_cords[0] != -1) {
                     tui.outOfBounds();

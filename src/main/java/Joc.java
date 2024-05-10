@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -20,8 +22,6 @@ public class Joc {
     }
 
     public void play(short row, short column)  {
-        //check if this element are empty
-        if (this.board[row][column] != 'X' && this.board[row][column] != 'O') {
             //add piece X or O and switch the turns
             switch (this.turn) {
                 case 1:
@@ -33,7 +33,6 @@ public class Joc {
                     this.turn = 1;
                     break;
             }
-        }
     }
     public boolean winning_play(short row,short column) {
         char symbol;
@@ -117,6 +116,66 @@ public class Joc {
 
         return Integer.parseInt(data);
     }
+
+    public boolean save_game(){
+        boolean fileCreated = false;
+        //set the actual date and hour
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+
+        //adapt date/hour in  yyyyMMdd_HHmmss format
+        String adapted_date = formattedDateTime.replace("-","").replace(":", "").replace(" ", "_");
+
+        //folder and file instanace
+        File folder = new File("savedgames");
+        File save_data = new File(folder,adapted_date + ".txt");
+
+        //new folder and file instance
+        //Create save folder if don't exists
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
+
+        //Craete Save data file
+        try {
+            fileCreated = save_data.createNewFile();
+
+            //wirte game data if not exists ??????????????
+            FileWriter writer = new FileWriter(save_data);
+            writer.write(this.turn + "\n");
+
+            // iteration for save the board
+            for (int i = 0; i < this.board.length; i++) {
+                for (int j = 0; j < this.board[0].length; j++) {
+                    //writing each row of board in this format -,-,-
+                    if (j != this.board[0].length - 1) {
+                        //check null and fill with -
+                        if (this.board[i][j] == 0){
+                            writer.write("-" + ",");
+                        } else {
+                            writer.write(this.board[i][j] + ",");
+                        }
+                    } else {
+                        //check null and fill with -
+                        if (this.board[i][j] == 0){
+                            writer.write("-");
+                        } else {
+                            writer.write(this.board[i][j] + "");
+                        }
+                    }
+                }
+                writer.write("\n");
+            }
+            writer.close();
+
+        } catch (IOException e){
+            System.err.println("Error al crear el archivo: " + e.getMessage());
+        }
+
+        return fileCreated;
+    }
+
     //Getters
     public char[][] getBoard() {
         return board;
