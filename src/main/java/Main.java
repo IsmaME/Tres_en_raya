@@ -17,7 +17,7 @@ public class Main {
                     //loadGame();
                     break;
                 case 3:
-                    settings();
+                    settings(tui, game);
                     break;
                 case 4:
                     //exit();
@@ -100,9 +100,7 @@ public class Main {
     }
 
     //This method asks the player what he wants to do in the "settings"
-    private static void settings() {
-        TUI tui = new TUI();
-        Joc game = new Joc();
+    private static void settings(TUI tui, Joc game) {
         short settings;
         int new_size = 0;
 
