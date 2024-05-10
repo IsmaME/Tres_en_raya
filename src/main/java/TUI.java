@@ -135,4 +135,9 @@ public class TUI {
 
         return opt;
     }
+
+    public void savedMessage(){
+        System.out.println("Partida guardada amb exit!");
+        System.out.println("Tornant al menu. \n\n");
+    }
 }
