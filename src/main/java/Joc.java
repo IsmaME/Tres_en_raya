@@ -47,8 +47,8 @@ public class Joc {
         this.board[row][column] = symbol;
 
         //Check if there's a winning row
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column - 2; j++) {
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length - 2; j++) {
                 if (this.board[i][j] == symbol && this.board[i][j + 1] == symbol && this.board[i][j + 2] == symbol) {
                     this.board[row][column] = 0;
                     return true;
@@ -56,16 +56,9 @@ public class Joc {
             }
         }
 
-        /*
-        if (this.board[row][0] == symbol && this.board[row][1] == symbol && this.board[row][2] == symbol) {
-            this.board[row][column] = 0;
-            return true;
-        }
-        */
-
         //Check if there's a winning column
-        for (int i = 0; i < row - 2; i++) {
-            for (int j = 0; j < column; j++) {
+        for (int i = 0; i < this.board.length - 2; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
                 if (this.board[i][j] == symbol && this.board[i + 1][j] == symbol && this.board[i + 2][j] == symbol) {
                     this.board[row][column] = 0;
                     return true;
@@ -73,16 +66,9 @@ public class Joc {
             }
         }
 
-        /*
-        if (this.board[0][column] == symbol && this.board[1][column] == symbol && this.board[2][column] == symbol) {
-            this.board[row][column] = 0;
-            return true;
-        }
-         */
-
         //Check if there's a winning diagonal1
-        for (int i = 0; i < row - 2; i++) {
-            for (int j = 0; j < column - 2; j++) {
+        for (int i = 0; i < this.board.length - 2; i++) {
+            for (int j = 0; j < this.board[0].length - 2; j++) {
                 if (this.board[i][j] == symbol && this.board[i + 1][j + 1] == symbol && this.board[i + 2][j + 2] == symbol) {
                     this.board[row][column] = 0;
                     return true;
@@ -91,25 +77,14 @@ public class Joc {
         }
 
         //Check if there's a winning diagonal2
-
-        //   CHEKC CHEKC CHECK
-
-        for (int i = this.board.length - 1; i < row + 2; i++) {
-            for (int j = 0; j < column - 2; j++) {
+        for (int i = 2; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length - 2; j++) {
                 if (this.board[i][j] == symbol && this.board[i - 1][j + 1] == symbol && this.board[i - 2][j + 2] == symbol) {
                     this.board[row][column] = 0;
                     return true;
                 }
             }
         }
-
-        /*
-        if ((this.board[0][0] == symbol && this.board[1][1] == symbol && this.board[2][2] == symbol)
-                || (this.board[0][2] == symbol && this.board[1][1] == symbol && this.board[2][0] == symbol)) {
-            this.board[row][column] = 0;
-            return true;
-        }
-         */
 
         //If there's no winning condition return false
         this.board[row][column] = 0;

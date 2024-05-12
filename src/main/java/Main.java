@@ -1,5 +1,7 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         TUI tui = new TUI();
