@@ -4,7 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Joc {
@@ -163,7 +164,7 @@ public class Joc {
         return Integer.parseInt(data);
     }
 
-    public boolean save_game(){
+    public boolean saveGame(){
         boolean fileCreated = false;
         //set the actual date and hour
         LocalDateTime now = LocalDateTime.now();
@@ -183,14 +184,16 @@ public class Joc {
             folder.mkdir();
         }
 
-        //Craete Save data file
+        //Craete Save data file and fill it with game information
         try {
             fileCreated = save_data.createNewFile();
 
             //wirte game data if not exists ??????????????
             FileWriter writer = new FileWriter(save_data);
+            //write player turn
             writer.write(this.turn + "\n");
-
+            //write board config
+            writer.write(this.board.length + "\n");
             // iteration for save the board
             for (int i = 0; i < this.board.length; i++) {
                 for (int j = 0; j < this.board[0].length; j++) {
@@ -223,6 +226,55 @@ public class Joc {
         return fileCreated;
     }
 
+    public List<String> saveList(){
+        File folder = new File("./savedgames");
+        List<String> txtFiles = new ArrayList<>();
+
+        if (folder.exists()) {
+            //get all savedgames files
+            File[] files = folder.listFiles();
+
+            //filter all .txt files and save list in txtFiles
+            for (File file : files) {
+                if (file.isFile() && file.getName().endsWith(".txt")) {
+                    txtFiles.add(file.getName());
+                }
+            }
+        }
+
+        return txtFiles;
+    }
+
+    public void loadGame(int position){
+        try {
+            File saveFile = new File("./savedgames/"+saveList().get(position - 1));
+            Scanner scFile = new Scanner(saveFile);
+
+            //register turn from saved file
+            this.turn = scFile.nextShort();
+            //register turn from saved file
+            short conf = scFile.nextShort();
+            scFile.nextLine();
+            this.board = new char[conf][conf];
+
+            for (int i = 0; i < conf; i++) {
+                String[] boardLine = scFile.nextLine().split(",");
+                char[] lineArray = new char[conf];
+                for (int j = 0; j < conf; j++) {
+                    lineArray[j] = boardLine[j].charAt(0);
+                    if (lineArray[j] == '-'){
+                        lineArray[j] = 0;
+                    }
+                }
+                this.board[i] = lineArray;
+            }
+            scFile.close();
+            //delete file
+            saveFile.delete();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     //Getters
     public char[][] getBoard() {
         return board;

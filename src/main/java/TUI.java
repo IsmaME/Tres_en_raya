@@ -1,5 +1,6 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TUI {
@@ -139,5 +140,35 @@ public class TUI {
     public void savedMessage(){
         System.out.println("Partida guardada amb exit!");
         System.out.println("Tornant al menu. \n\n");
+    }
+
+    public int showSaveList(List<String> saveList){
+        short index = 1;
+        boolean askForPosition = true;
+        int numSave;
+
+        System.out.println("-------------------------");
+        for (String save : saveList){
+            System.out.println(index + ". -> " + save);
+            index++;
+        }
+        System.out.println("-------------------------");
+
+        do {
+            System.out.print("Introdueix la partida que vols carregar (has de posar el numero del index)--> ");
+            numSave = this.sc.nextInt();
+            System.out.println();
+
+            if (numSave > saveList.size() || numSave < 0){
+                askForPosition = true;
+                System.out.println("Introdueix un valor correcte.");
+                System.out.println();
+            }
+            else {
+                askForPosition = false;
+            }
+        } while (askForPosition);
+
+        return numSave;
     }
 }

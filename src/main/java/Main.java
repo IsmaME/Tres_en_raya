@@ -11,10 +11,10 @@ public class Main {
         do {
             switch (op) {
                 case 1:
-                    newGame(game, tui);
+                    newGame(game, tui, false);
                     break;
                 case 2:
-                    //loadGame();
+                    loadGame(game, tui);
                     break;
                 case 3:
                     settings(tui, game);
@@ -29,8 +29,10 @@ public class Main {
         } while (control);
     }
 
-    private static void newGame(Joc game, TUI tui) {
-        game.newGame();
+    private static void newGame(Joc game, TUI tui, Boolean loadedFromSaveData) {
+        if (!loadedFromSaveData){
+            game.newGame();
+        }
         char[][] final_board = new char[3][3];
         boolean runing_game = true;
         boolean player_win = false;
@@ -57,7 +59,7 @@ public class Main {
                 //if coords are -1,-1 program will save the game
                 else if (play_cords[0] == -1 && play_cords[1] == -1) {
                     //if saved show message
-                    if (game.save_game()){
+                    if (game.saveGame()){
                         tui.savedMessage();
                     }
                     bad_coords = false;
@@ -95,8 +97,11 @@ public class Main {
         }
     }
 
-    private static void loadGame() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Por hacer.");
+    private static void loadGame(Joc game, TUI tui)  {
+        //send list from joc to TUI and show it from TUI
+        int position = tui.showSaveList(game.saveList());
+        game.loadGame(position);
+        newGame(game,tui,true);
     }
 
     //This method asks the player what he wants to do in the "settings"
