@@ -9,7 +9,6 @@ public class Main {
         Joc game = new Joc();
         
         int op = tui.showMenu();
-        boolean control = true;
 
         do {
             switch (op) {
@@ -23,13 +22,12 @@ public class Main {
                     settings(tui, game);
                     break;
                 case 4:
-                    //exit();
-                    control = false;
-                    break;
+                    exit(tui);
+                    return;
             }
             op = tui.showMenu();
 
-        } while (control);
+        } while (true);
     }
 
     private static void newGame(Joc game, TUI tui, Boolean loadedFromSaveData) throws IOException {
@@ -108,7 +106,7 @@ public class Main {
     }
 
     //This method asks the player what he wants to do in the "settings"
-    private static void settings(TUI tui, Joc game) {
+    private static void settings(TUI tui, Joc game) throws IOException {
         short settings;
         int new_size = 0;
 
@@ -126,7 +124,7 @@ public class Main {
         }
     }
 
-    private static void exit() throws ExecutionControl.NotImplementedException {
-        throw new ExecutionControl.NotImplementedException("Por hacer.");
+    private static void exit(TUI tui) {
+        tui.exit_program();
     }
 }

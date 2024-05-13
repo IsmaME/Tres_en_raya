@@ -111,29 +111,23 @@ public class Joc {
         return opt;
     }
 
-    public int new_board_settings(short settings) {
+    public int new_board_settings(short settings) throws IOException {
         String data = "";
         File board_size = new File("config");
 
-        try {
-            FileWriter size = new FileWriter(board_size);
-            size.write(String.valueOf(settings));
-            size.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        FileWriter size = new FileWriter(board_size);
+        size.write(String.valueOf(settings));
+        size.close();
+
 
         Scanner myReader;
 
-        try {
-            myReader = new Scanner(board_size);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
+        myReader = new Scanner(board_size);
 
         while (myReader.hasNextLine()) {
             data = myReader.nextLine();
-            System.out.println(data);
         }
 
         return Integer.parseInt(data);

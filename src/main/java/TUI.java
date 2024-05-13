@@ -171,4 +171,8 @@ public class TUI {
 
         return numSave;
     }
+
+    public void exit_program() {
+        System.out.println("Adeu!");
+    }
 }

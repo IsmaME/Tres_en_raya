@@ -399,7 +399,7 @@ public class TestJoc {
     }
     @ParameterizedTest
     @CsvSource({"10"})
-    void new_board_settings(short settings) {
+    void new_board_settings(short settings) throws IOException {
         Joc game = new Joc();
 
         int actual = game.new_board_settings(settings);
