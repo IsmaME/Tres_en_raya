@@ -159,7 +159,7 @@ public class TUI {
             numSave = this.sc.nextInt();
             System.out.println();
 
-            if (numSave > saveList.size() || numSave < 0){
+            if (numSave > saveList.size() || numSave <= 0){
                 askForPosition = true;
                 System.out.println("Introdueix un valor correcte.");
                 System.out.println();

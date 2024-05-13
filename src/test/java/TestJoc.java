@@ -4,6 +4,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -408,7 +409,7 @@ public class TestJoc {
 
     //save
     @org.junit.jupiter.api.Test
-    void saveGame_folderCreated() {
+    void saveGame_folderCreated() throws IOException {
         Joc game = new Joc();
         File folder = new File("savedgames");
 
@@ -422,7 +423,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2"})
-    void saveGame_fileCreated(int quantity) throws InterruptedException {
+    void saveGame_fileCreated(int quantity) throws InterruptedException, IOException {
         Joc game = new Joc();
         File folder = new File("savedgames");
         File[] files = folder.listFiles();
@@ -445,7 +446,7 @@ public class TestJoc {
     }
 
     @org.junit.jupiter.api.Test
-    void saveGame_fileContent() {
+    void saveGame_fileContent() throws IOException {
         Joc game = new Joc();
         File folder = new File("savedgames");
         File[] files = folder.listFiles();
@@ -493,13 +494,13 @@ public class TestJoc {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+           Assertions.fail();
         }
     }
 
     @ParameterizedTest
     @CsvSource({"2","4"})
-    void saveList(int quantity) throws InterruptedException {
+    void saveList(int quantity) throws InterruptedException, IOException {
         Joc game = new Joc();
         File folder = new File("savedgames");
         List<String> txtFiles = new ArrayList<>();
@@ -547,7 +548,7 @@ public class TestJoc {
     }
     @ParameterizedTest
     @CsvSource({"0,0,1,0","0,0,0,0"})
-    void loadGame(short player1Row,short player1Column,short player2Row,short player2Column) {
+    void loadGame(short player1Row,short player1Column,short player2Row,short player2Column) throws IOException {
         Joc game = new Joc();
         File folder = new File("savedgames");
         File[] files = folder.listFiles();

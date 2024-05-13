@@ -1,9 +1,10 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         TUI tui = new TUI();
         Joc game = new Joc();
         
@@ -31,7 +32,7 @@ public class Main {
         } while (control);
     }
 
-    private static void newGame(Joc game, TUI tui, Boolean loadedFromSaveData) {
+    private static void newGame(Joc game, TUI tui, Boolean loadedFromSaveData) throws IOException {
         if (!loadedFromSaveData){
             game.newGame();
         }
@@ -99,7 +100,7 @@ public class Main {
         }
     }
 
-    private static void loadGame(Joc game, TUI tui)  {
+    private static void loadGame(Joc game, TUI tui) throws IOException {
         //send list from joc to TUI and show it from TUI
         int position = tui.showSaveList(game.saveList());
         game.loadGame(position);

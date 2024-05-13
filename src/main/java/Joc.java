@@ -139,7 +139,7 @@ public class Joc {
         return Integer.parseInt(data);
     }
 
-    public boolean saveGame(){
+    public boolean saveGame() throws IOException {
         boolean fileCreated = false;
         //set the actual date and hour
         LocalDateTime now = LocalDateTime.now();
@@ -160,43 +160,37 @@ public class Joc {
         }
 
         //Craete Save data file and fill it with game information
-        try {
-            fileCreated = save_data.createNewFile();
+        fileCreated = save_data.createNewFile();
 
-            //wirte game data if not exists ??????????????
-            FileWriter writer = new FileWriter(save_data);
-            //write player turn
-            writer.write(this.turn + "\n");
-            //write board config
-            writer.write(this.board.length + "\n");
-            // iteration for save the board
-            for (int i = 0; i < this.board.length; i++) {
-                for (int j = 0; j < this.board[0].length; j++) {
-                    //writing each row of board in this format -,-,-
-                    if (j != this.board[0].length - 1) {
-                        //check null and fill with -
-                        if (this.board[i][j] == 0){
-                            writer.write("-" + ",");
-                        } else {
-                            writer.write(this.board[i][j] + ",");
-                        }
+        //wirte game data
+        FileWriter writer = new FileWriter(save_data);
+        //write player turn
+        writer.write(this.turn + "\n");
+        //write board config
+        writer.write(this.board.length + "\n");
+        // iteration for save the board
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                //writing each row of board in this format -,-,-
+                if (j != this.board[0].length - 1) {
+                    //check null and fill with -
+                    if (this.board[i][j] == 0){
+                        writer.write("-" + ",");
                     } else {
-                        //check null and fill with -
-                        if (this.board[i][j] == 0){
-                            writer.write("-");
-                        } else {
-                            writer.write(this.board[i][j] + "");
-                        }
+                        writer.write(this.board[i][j] + ",");
+                    }
+                } else {
+                    //check null and fill with -
+                    if (this.board[i][j] == 0){
+                        writer.write("-");
+                    } else {
+                        writer.write(this.board[i][j] + "");
                     }
                 }
-                writer.write("\n");
             }
-            writer.close();
-
-        } catch (IOException e){
-            //preguntar al fer????????????????????????????????????????????
-            System.err.println("Error al crear el archivo: " + e.getMessage());
+            writer.write("\n");
         }
+        writer.close();
 
         return fileCreated;
     }
@@ -220,35 +214,31 @@ public class Joc {
         return txtFiles;
     }
 
-    public void loadGame(int position){
-        try {
-            File saveFile = new File("./savedgames/"+saveList().get(position - 1));
-            Scanner scFile = new Scanner(saveFile);
+    public void loadGame(int position) throws FileNotFoundException {
+        File saveFile = new File("./savedgames/" + saveList().get(position - 1));
+        Scanner scFile = new Scanner(saveFile);
 
-            //register turn from saved file
-            this.turn = scFile.nextShort();
-            //register turn from saved file
-            short conf = scFile.nextShort();
-            scFile.nextLine();
-            this.board = new char[conf][conf];
+        //register turn from saved file
+        this.turn = scFile.nextShort();
+        //register turn from saved file
+        short conf = scFile.nextShort();
+        scFile.nextLine();
+        this.board = new char[conf][conf];
 
-            for (int i = 0; i < conf; i++) {
-                String[] boardLine = scFile.nextLine().split(",");
-                char[] lineArray = new char[conf];
-                for (int j = 0; j < conf; j++) {
-                    lineArray[j] = boardLine[j].charAt(0);
-                    if (lineArray[j] == '-'){
-                        lineArray[j] = 0;
-                    }
+        for (int i = 0; i < conf; i++) {
+            String[] boardLine = scFile.nextLine().split(",");
+            char[] lineArray = new char[conf];
+            for (int j = 0; j < conf; j++) {
+                lineArray[j] = boardLine[j].charAt(0);
+                if (lineArray[j] == '-') {
+                    lineArray[j] = 0;
                 }
-                this.board[i] = lineArray;
             }
-            scFile.close();
-            //delete file
-            saveFile.delete();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            this.board[i] = lineArray;
         }
+        scFile.close();
+        //delete file
+        saveFile.delete();
     }
     //Getters
     public char[][] getBoard() {
