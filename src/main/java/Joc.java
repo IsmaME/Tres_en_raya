@@ -9,17 +9,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Joc {
-    private char[][] board = new char[3][3];
+    private char[][] board;
     private short turn;
 
     //Methods
-    public void newGame() {
+    public void newGame() throws FileNotFoundException {
+        File conf = new File("config");
+        Scanner readConf = new Scanner(conf);
+        int option = readConf.nextInt();
+        readConf.close();
+
         this.turn = 1;
-    }
-    public void new_board(int size) {
-        //set the board empty
-        this.board = new char[size][size];
-        setBoard(this.board);
+        board = new char[option][option];
     }
 
     public void play(short row, short column)  {
@@ -121,10 +122,7 @@ public class Joc {
         size.close();
 
 
-        Scanner myReader;
-
-
-        myReader = new Scanner(board_size);
+        Scanner myReader = new Scanner(board_size);
 
         while (myReader.hasNextLine()) {
             data = myReader.nextLine();
@@ -231,8 +229,6 @@ public class Joc {
             this.board[i] = lineArray;
         }
         scFile.close();
-        //delete file
-        saveFile.delete();
     }
     //Getters
     public char[][] getBoard() {

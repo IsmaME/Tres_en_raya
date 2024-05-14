@@ -1,5 +1,6 @@
 import jdk.jshell.spi.ExecutionControl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,13 +42,29 @@ public class TUI {
         //show player turn
         System.out.println(torn == 1? "Torn: Jugador1" : "Torn: Jugador2");
         System.out.println(" ");
+        String repeatedLine = "----";
 
         //show the board
         for (int i = 0; i < original_board.length; i++) {
-            for (int j = 0; j < original_board[0].length; j++) {
-                System.out.print(original_board[i][j]);
+            for (int j = 0; j < original_board.length; j++) {
+                if (j == original_board.length -1){
+                    if (original_board[i][j] != 0) {
+                        System.out.print( " " + original_board[i][j] + " ");
+                    } else {
+                        System.out.print( " " + " " + " ");
+                    }
+                }else {
+                    if (original_board[i][j] != 0){
+                        System.out.print(" " + original_board[i][j] + " |");
+                    } else {
+                        System.out.print(" " + " " + " |");
+                    }
+                }
             }
             System.out.println();
+            if (i != original_board.length -1){
+                System.out.println(repeatedLine.repeat(original_board.length));
+            }
         }
         System.out.println("Introdueix la teva jugada indicant primer la columna i després la fila ('-1,-1' per desar partida)");
     }

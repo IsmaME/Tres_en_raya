@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class TestJoc {
     @org.junit.jupiter.api.Test
-    void newGame() {
+    void newGame() throws IOException {
         Joc game = new Joc();
-
+        game.new_board_settings((short) 3);
         //create an empty board
         char[][] empty_board = new char[3][3];
 
@@ -34,8 +34,11 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
-    void play_player1(short row, short column) {
+    void play_player1(short row, short column) throws IOException {
         Joc game = new Joc();
+
+        game.new_board_settings((short)3);
+
         char[][] board = new char[3][3];
 
         //Asign X in the indicated position
@@ -49,7 +52,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,0","0,1","0,2","1,0","1,1","1,2","2,0","2,1","2,2"})
-    void play_player2(short row, short column) {
+    void play_player2(short row, short column) throws FileNotFoundException {
         Joc game = new Joc();
         char[][] board = new char[3][3];
 
@@ -79,13 +82,11 @@ public class TestJoc {
             "7,0","7,1","7,2","7,3","7,4","7,5","7,6","7,7","7,8","7,9",
             "8,0","8,1","8,2","8,3","8,4","8,5","8,6","8,7","8,8","8,9",
             "9,0","9,1","9,2","9,3","9,4","9,5","9,6","9,7","9,8","9,9"})
-    void winning_play_empty_board(short row,short column) {
+    void winning_play_empty_board(short row,short column) throws IOException {
         Joc game = new Joc();
-
+        game.new_board_settings((short)10);
         game.newGame();
-        game.new_board((short)10);
         Assertions.assertFalse(game.winning_play(row, column));
-
     }
 
     @ParameterizedTest
@@ -99,11 +100,11 @@ public class TestJoc {
             "7,0","7,1","7,2","7,3","7,4","7,5","7,6","7,7","7,8","7,9",
             "8,0","8,1","8,2","8,3","8,4","8,5","8,6","8,7","8,8","8,9",
             "9,0","9,1","9,2","9,3","9,4","9,5","9,6","9,7","9,8","9,9"})
-    void winning_play_one_position(short row,short column) {
+    void winning_play_one_position(short row,short column) throws IOException {
         Joc game = new Joc();
-
+        game.new_board_settings((short)10);
         game.newGame();
-        game.new_board((short)10);
+
         game.play(row, column);
 
         Assertions.assertFalse(game.winning_play(row, column));
@@ -111,7 +112,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,0"})
-    void winning_play_player1_column1(short row,short column) {
+    void winning_play_player1_column1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -129,7 +130,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,1"})
-    void winning_play_player1_column2(short row,short column) {
+    void winning_play_player1_column2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -145,7 +146,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player1_column3(short row,short column) {
+    void winning_play_player1_column3(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -161,7 +162,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,0"})
-    void winning_play_player2_column1(short row,short column) {
+    void winning_play_player2_column1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -178,7 +179,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,1"})
-    void winning_play_player2_column2(short row,short column) {
+    void winning_play_player2_column2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -195,7 +196,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player2_column3(short row,short column) {
+    void winning_play_player2_column3(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -212,7 +213,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,2"})
-    void winning_play_player1_row1(short row,short column) {
+    void winning_play_player1_row1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -228,7 +229,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"1,2"})
-    void winning_play_player1_row2(short row,short column) {
+    void winning_play_player1_row2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -244,7 +245,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player1_row3(short row,short column) {
+    void winning_play_player1_row3(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -260,7 +261,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,2"})
-    void winning_play_player2_row1(short row,short column) {
+    void winning_play_player2_row1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -277,7 +278,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"1,2"})
-    void winning_play_player2_row2(short row,short column) {
+    void winning_play_player2_row2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -294,7 +295,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player2_row3(short row,short column) {
+    void winning_play_player2_row3(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -311,7 +312,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player1_diagonal1(short row,short column) {
+    void winning_play_player1_diagonal1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -327,7 +328,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,2"})
-    void winning_play_player1_diagonal2(short row,short column) {
+    void winning_play_player1_diagonal2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -343,7 +344,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"2,2"})
-    void winning_play_player2_diagonal1(short row,short column) {
+    void winning_play_player2_diagonal1(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -360,7 +361,7 @@ public class TestJoc {
 
     @ParameterizedTest
     @CsvSource({"0,2"})
-    void winning_play_player2_diagonal2(short row,short column) {
+    void winning_play_player2_diagonal2(short row,short column) throws FileNotFoundException {
         Joc game = new Joc();
 
         game.newGame();
@@ -376,9 +377,9 @@ public class TestJoc {
     }
 
     @org.junit.jupiter.api.Test
-    void board_filled() {
+    void board_filled() throws IOException {
         Joc game = new Joc();
-
+        game.new_board_settings((short) 3);
         game.newGame();
 
         int board_row = game.getBoard().length;

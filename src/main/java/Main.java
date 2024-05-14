@@ -34,7 +34,6 @@ public class Main {
         if (!loadedFromSaveData){
             game.newGame();
         }
-        char[][] final_board = new char[3][3];
         boolean runing_game = true;
         boolean player_win = false;
         boolean boarfilled = false;
@@ -88,10 +87,8 @@ public class Main {
             //check if someone win or draw
             if (player_win){
                 tui.win_message(player_turn);
-                game.setBoard(final_board);
                 runing_game = false;
             } else if (boarfilled) {
-                game.setBoard(final_board);
                 tui.draw_message();
                 runing_game = false;
             }
@@ -117,8 +114,8 @@ public class Main {
             case 1:
             //This will get the settings and give it to the method that changes the board
             settings = tui.board_size();
-            new_size = game.new_board_settings(settings);
-            game.new_board(new_size);
+            game.new_board_settings(settings);
+
             case 2:
                 break;
         }
