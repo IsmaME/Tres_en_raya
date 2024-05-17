@@ -1,3 +1,5 @@
+import jdk.jshell.spi.ExecutionControl;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -230,6 +232,11 @@ public class Joc {
         }
         scFile.close();
     }
+    //minmax AI
+    public short[] minmaxAi() throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("IA no implementada");
+    }
+
     //Getters
     public char[][] getBoard() {
         return board;

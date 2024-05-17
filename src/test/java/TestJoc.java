@@ -1,3 +1,4 @@
+import jdk.jshell.spi.ExecutionControl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -585,4 +586,295 @@ public class TestJoc {
         Assertions.assertArrayEquals(savedBoard, game.getBoard());
     }
 
+    //AI TEST
+
+    //verify if AI makes the move to win in
+    @org.junit.jupiter.api.Test
+    void AIWinsDiagonal1() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[0][0] = 'O';
+        game.play((short)0,(short)0);
+        //player
+        boardTest[0][2] = 'X';
+        game.play((short)0,(short)2);
+        //AI
+        boardTest[1][1] = 'O';
+        game.play((short)1,(short)1);
+        //play
+        boardTest[1][2] = 'X';
+        game.play((short)1,(short)2);
+        //AI
+        boardTest[1][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIWinsDiagonal2() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[0][2] = 'O';
+        game.play((short)0,(short)2);
+        //player
+        boardTest[0][0] = 'X';
+        game.play((short)0,(short)0);
+        //AI
+        boardTest[1][1] = 'O';
+        game.play((short)1,(short)1);
+        //play
+        boardTest[1][2] = 'X';
+        game.play((short)1,(short)2);
+        //AI
+        boardTest[2][0] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIWinsHorizontal() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[1][0] = 'O';
+        game.play((short)1,(short)0);
+        //player
+        boardTest[0][2] = 'X';
+        game.play((short)0,(short)2);
+        //AI
+        boardTest[1][1] = 'O';
+        game.play((short)1,(short)1);
+        //play
+        boardTest[2][2] = 'X';
+        game.play((short)2,(short)2);
+        //AI
+        boardTest[1][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIWinsVerticaly() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][0] = 'X';
+        game.play((short)0,(short)0);
+        //AI
+        boardTest[0][1] = 'O';
+        game.play((short)0,(short)1);
+        //player
+        boardTest[2][2] = 'X';
+        game.play((short)2,(short)2);
+        //AI
+        boardTest[1][1] = 'O';
+        game.play((short)1,(short)1);
+        //play
+        boardTest[2][2] = 'X';
+        game.play((short)2,(short)2);
+        //AI
+        boardTest[2][1] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+    //AI wins in diferent case
+    @org.junit.jupiter.api.Test
+    void AIWinsVerticalyDif() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][0] = 'X';
+        game.play((short)0,(short)0);
+        //AI
+        boardTest[0][2] = 'O';
+        game.play((short)0,(short)2);
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[1][2] = 'O';
+        game.play((short)1,(short)2);
+        //play
+        boardTest[1][0] = 'X';
+        game.play((short)1,(short)0);
+        //AI
+        boardTest[2][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    //Verify if The AI tries to block the player's winning move
+    @org.junit.jupiter.api.Test
+    void AIBlockDiagonal1() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][0] = 'X';
+        game.play((short)0,(short)0);
+        //AI
+        boardTest[0][1] = 'O';
+        game.play((short)0,(short)1);
+        //player
+        boardTest[1][1] = 'X';
+        game.play((short)1,(short)1);
+        //AI
+        boardTest[2][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIBlockDiagonal2() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][2] = 'X';
+        game.play((short)0,(short)2);
+        //AI
+        boardTest[0][1] = 'O';
+        game.play((short)0,(short)1);
+        //player
+        boardTest[1][1] = 'X';
+        game.play((short)1,(short)1);
+        //AI
+        boardTest[2][0] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIBlockHorizontal() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[1][0] = 'X';
+        game.play((short)1,(short)0);
+        //AI
+        boardTest[0][1] = 'O';
+        game.play((short)0,(short)1);
+        //player
+        boardTest[1][1] = 'X';
+        game.play((short)1,(short)1);
+        //AI
+        boardTest[1][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    @org.junit.jupiter.api.Test
+    void AIBlockVertical() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[0][0] = 'O';
+        game.play((short)0,(short)0);
+        //player
+        boardTest[1][1] = 'X';
+        game.play((short)1,(short)1);
+        //AI
+        boardTest[2][1] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    //AI draw
+
+    @org.junit.jupiter.api.Test
+    void AIDraw1() throws FileNotFoundException, ExecutionControl.NotImplementedException {
+        Joc game = new Joc();
+        game.newGame();
+
+        char[][] boardTest = new char[3][3];
+
+        //player
+        boardTest[1][1] = 'X';
+        game.play((short)1,(short)1);
+        //AI
+        boardTest[0][0] = 'O';
+        game.play((short)0,(short)0);
+        //player
+        boardTest[0][1] = 'X';
+        game.play((short)0,(short)1);
+        //AI
+        boardTest[2][1] = 'O';
+        game.play((short)2,(short)1);
+        //player
+        boardTest[1][0] = 'X';
+        game.play((short)1,(short)0);
+        //AI
+        boardTest[2][1] = 'O';
+        game.play((short)2,(short)1);
+        //player
+        boardTest[2][0] = 'X';
+        game.play((short)2,(short)0);
+        //AI
+        boardTest[0][2] = 'O';
+        short[] aiCoords = game.minmaxAi();
+        game.play(aiCoords[0],aiCoords[1]);
+
+        Assertions.assertArrayEquals(boardTest,game.getBoard());
+    }
+
+    //Draw and win
 }
+
+
